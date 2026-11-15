@@ -1,0 +1,4 @@
+Fecha del entorno: 2026-11-15
+Peticion real intentada: GET https://open.er-api.com/v6/latest/USD
+Resultado ejecutado: ERROR: Fallo de red o HTTP al consultar la API: ConnectionError
+La API no respondio en este entorno sin DNS; NO se obtuvo una tasa real desde Python.

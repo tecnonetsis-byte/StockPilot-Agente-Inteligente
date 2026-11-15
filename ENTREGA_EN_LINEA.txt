@@ -1,0 +1,16 @@
+TITULO: STOCKPILOT AI - AGENTE DE REPOSICION DE ACCESORIOS TECNOLOGICOS
+
+Problema: propuesta academica de automatizacion de analisis de inventario y calculo de reposicion en ALKOSTO PLUS, con datos totalmente simulados, consulta programada a API publica de tipos de cambio y aprobacion humana antes de registrar ordenes simuladas.
+
+Repositorio GitHub: [PENDIENTE: insertar URL verdadera despues de publicarlo].
+Video (3-5 minutos): [PENDIENTE: insertar URL verdadera de Drive, YouTube no listado o Loom].
+
+Arquitectura y cinco primitivos: documentados en README.md (instrucciones, herramientas, memoria, estado y control) y en evidencias/arquitectura_stockpilot.png.
+
+Herramientas: consultar_inventario, calcular_reposicion, consultar_tipo_cambio_publico (HTTPS a https://open.er-api.com/v6/latest/USD) y registrar_orden_reposicion. La herramienta devuelve ERROR: ante fallos de la API. La conexion HTTPS en vivo no pudo probarse desde el entorno de construccion sin red; el proyecto permite probarla en otro equipo.
+
+Control: pausa anterior al registro de una orden simulada; el supervisor responde approve/reject. En modo reproducible se prueban ambos caminos. Incluye integracion opcional con HumanInTheLoopMiddleware de LangChain y checkpointer; esta integracion requiere dependencias y clave para ejecutarse.
+
+Evaluacion ejecutada: 5/5 casos PASS (100% de criterios de caso) sobre el agente reproducible. Casos con debe_usar / no_debe_usar, traza visible, una aprobacion, un rechazo y error HTTP 503 simulado. Diez pruebas unitarias superadas. Salidas completas en salidas/evaluacion_ejecutada.json, salidas/informe_evaluacion.md y salidas/caso_1.txt ... caso_5.txt.
+
+Datos y tipo de cambio utilizados en las salidas de prueba: SIMULADOS, no corresponden a inventario ni a cotizaciones reales.

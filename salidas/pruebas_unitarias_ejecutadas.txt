@@ -1,0 +1,15 @@
+test_api_error_prefix_and_no_order (test_agent.AgentTests.test_api_error_prefix_and_no_order) ... ok
+test_api_response_parsing_with_mock_http (test_agent.AgentTests.test_api_response_parsing_with_mock_http) ... ok
+test_api_timeout_error (test_agent.AgentTests.test_api_timeout_error) ... ok
+test_control_approves_only_after_pause (test_agent.AgentTests.test_control_approves_only_after_pause) ... ok
+test_cotizacion (test_agent.AgentTests.test_cotizacion) ... ok
+test_invalid_approval_cannot_write (test_agent.AgentTests.test_invalid_approval_cannot_write) ... ok
+test_no_reorder_if_stock_sufficient (test_agent.AgentTests.test_no_reorder_if_stock_sufficient) ... ok
+test_rejection_no_order (test_agent.AgentTests.test_rejection_no_order) ... ok
+test_stock_only_no_api (test_agent.AgentTests.test_stock_only_no_api) ... ok
+test_unknown_request_no_tool (test_agent.AgentTests.test_unknown_request_no_tool) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.004s
+
+OK

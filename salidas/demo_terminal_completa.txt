@@ -1,0 +1,302 @@
+
+====================== CASO NORMAL - COTIZACION ======================
+{
+  "thread_id": "CASO-NORMAL---COTIZACION",
+  "estado": "finalizado",
+  "respuesta": "SKU CBLC: sugeridas 77 unidades; USD 138.60; BOB 1621.62 (tipo 11.7, modo SIMULADO_SIN_RED; no es cotizacion de venta).",
+  "traza": [
+    {
+      "herramienta": "consultar_inventario",
+      "salida": {
+        "sku": "CBLC",
+        "producto": "Cable USB-C a Lightning",
+        "stock": 6,
+        "ventas_14d": 55,
+        "fuente": "inventario simulado local"
+      }
+    },
+    {
+      "herramienta": "calcular_reposicion",
+      "salida": {
+        "sku": "CBLC",
+        "stock": 6,
+        "ventas_14d": 55,
+        "objetivo_dias": 21,
+        "stock_objetivo": 83,
+        "unidades_sugeridas": 77,
+        "costo_unitario_usd": "1.80",
+        "costo_total_usd": "138.60",
+        "formula": "max(0, ceil(ventas_14d / 14 * 21) - stock)"
+      }
+    },
+    {
+      "herramienta": "consultar_tipo_cambio_publico",
+      "salida": {
+        "usd_bob": 11.7,
+        "fuente": "ESCENARIO SIMULADO",
+        "actualizado_utc": "SIMULADO",
+        "modo": "SIMULADO_SIN_RED",
+        "atribucion": "No es una cotizacion de mercado",
+        "advertencia": "Tasa inventada para pruebas; no usar en precios reales"
+      }
+    }
+  ]
+}
+
+====================== CASO ERROR API ======================
+{
+  "thread_id": "CASO-ERROR-API",
+  "estado": "error_api",
+  "respuesta": "ERROR: HTTP 503 simulado; proveedor temporalmente no disponible. No se crea orden ni se inventa tasa.",
+  "traza": [
+    {
+      "herramienta": "consultar_inventario",
+      "salida": {
+        "sku": "C20W",
+        "producto": "Cargador USB-C 20 W",
+        "stock": 8,
+        "ventas_14d": 42,
+        "fuente": "inventario simulado local"
+      }
+    },
+    {
+      "herramienta": "calcular_reposicion",
+      "salida": {
+        "sku": "C20W",
+        "stock": 8,
+        "ventas_14d": 42,
+        "objetivo_dias": 21,
+        "stock_objetivo": 63,
+        "unidades_sugeridas": 55,
+        "costo_unitario_usd": "5.50",
+        "costo_total_usd": "302.50",
+        "formula": "max(0, ceil(ventas_14d / 14 * 21) - stock)"
+      }
+    },
+    {
+      "herramienta": "consultar_tipo_cambio_publico",
+      "salida": "ERROR: HTTP 503 simulado; proveedor temporalmente no disponible"
+    }
+  ]
+}
+
+====================== CONTROL - APROBACION ======================
+{
+  "thread_id": "CONTROL---APROBACION",
+  "estado": "PENDIENTE_APROBACION_HUMANA",
+  "respuesta": "SKU C20W: sugeridas 55 unidades; USD 302.50; BOB 3539.25 (tipo 11.7, modo SIMULADO_SIN_RED; no es cotizacion de venta). ACCION BLOQUEADA: ¿Aprobar o rechazar registro simulado?",
+  "traza": [
+    {
+      "herramienta": "consultar_inventario",
+      "salida": {
+        "sku": "C20W",
+        "producto": "Cargador USB-C 20 W",
+        "stock": 8,
+        "ventas_14d": 42,
+        "fuente": "inventario simulado local"
+      }
+    },
+    {
+      "herramienta": "calcular_reposicion",
+      "salida": {
+        "sku": "C20W",
+        "stock": 8,
+        "ventas_14d": 42,
+        "objetivo_dias": 21,
+        "stock_objetivo": 63,
+        "unidades_sugeridas": 55,
+        "costo_unitario_usd": "5.50",
+        "costo_total_usd": "302.50",
+        "formula": "max(0, ceil(ventas_14d / 14 * 21) - stock)"
+      }
+    },
+    {
+      "herramienta": "consultar_tipo_cambio_publico",
+      "salida": {
+        "usd_bob": 11.7,
+        "fuente": "ESCENARIO SIMULADO",
+        "actualizado_utc": "SIMULADO",
+        "modo": "SIMULADO_SIN_RED",
+        "atribucion": "No es una cotizacion de mercado",
+        "advertencia": "Tasa inventada para pruebas; no usar en precios reales"
+      }
+    }
+  ],
+  "control": {
+    "herramienta": "registrar_orden_reposicion",
+    "opciones": [
+      "approve",
+      "reject"
+    ],
+    "ejecutada": false
+  }
+}
+
+[OPERADOR EXTERNO] DECISION: approve
+{
+  "thread_id": "CONTROL---APROBACION",
+  "estado": "APROBADO_Y_REGISTRADO_SIMULADO",
+  "respuesta": "SKU C20W: sugeridas 55 unidades; USD 302.50; BOB 3539.25 (tipo 11.7, modo SIMULADO_SIN_RED; no es cotizacion de venta). Orden registrada tras aprobacion explicita.",
+  "traza": [
+    {
+      "herramienta": "consultar_inventario",
+      "salida": {
+        "sku": "C20W",
+        "producto": "Cargador USB-C 20 W",
+        "stock": 8,
+        "ventas_14d": 42,
+        "fuente": "inventario simulado local"
+      }
+    },
+    {
+      "herramienta": "calcular_reposicion",
+      "salida": {
+        "sku": "C20W",
+        "stock": 8,
+        "ventas_14d": 42,
+        "objetivo_dias": 21,
+        "stock_objetivo": 63,
+        "unidades_sugeridas": 55,
+        "costo_unitario_usd": "5.50",
+        "costo_total_usd": "302.50",
+        "formula": "max(0, ceil(ventas_14d / 14 * 21) - stock)"
+      }
+    },
+    {
+      "herramienta": "consultar_tipo_cambio_publico",
+      "salida": {
+        "usd_bob": 11.7,
+        "fuente": "ESCENARIO SIMULADO",
+        "actualizado_utc": "SIMULADO",
+        "modo": "SIMULADO_SIN_RED",
+        "atribucion": "No es una cotizacion de mercado",
+        "advertencia": "Tasa inventada para pruebas; no usar en precios reales"
+      }
+    },
+    {
+      "herramienta": "registrar_orden_reposicion",
+      "salida": {
+        "estado": "REGISTRADA",
+        "orden": {
+          "orden_id": "SIM-0001",
+          "sku": "C20W",
+          "unidades": 55,
+          "total_usd": "302.50",
+          "total_bob": "3539.25",
+          "tipo": "ORDEN_SIMULADA",
+          "aprobacion": "APROBACION_EXTERNA_EXPLICITA",
+          "thread_id": "CONTROL---APROBACION",
+          "creado_utc": "2026-11-15T22:06:17.234882+00:00"
+        }
+      }
+    }
+  ],
+  "control": {
+    "decision": "approve",
+    "ejecutada": true
+  }
+}
+
+====================== CONTROL - RECHAZO ======================
+{
+  "thread_id": "CONTROL---RECHAZO",
+  "estado": "PENDIENTE_APROBACION_HUMANA",
+  "respuesta": "SKU CBLC: sugeridas 77 unidades; USD 138.60; BOB 1621.62 (tipo 11.7, modo SIMULADO_SIN_RED; no es cotizacion de venta). ACCION BLOQUEADA: ¿Aprobar o rechazar registro simulado?",
+  "traza": [
+    {
+      "herramienta": "consultar_inventario",
+      "salida": {
+        "sku": "CBLC",
+        "producto": "Cable USB-C a Lightning",
+        "stock": 6,
+        "ventas_14d": 55,
+        "fuente": "inventario simulado local"
+      }
+    },
+    {
+      "herramienta": "calcular_reposicion",
+      "salida": {
+        "sku": "CBLC",
+        "stock": 6,
+        "ventas_14d": 55,
+        "objetivo_dias": 21,
+        "stock_objetivo": 83,
+        "unidades_sugeridas": 77,
+        "costo_unitario_usd": "1.80",
+        "costo_total_usd": "138.60",
+        "formula": "max(0, ceil(ventas_14d / 14 * 21) - stock)"
+      }
+    },
+    {
+      "herramienta": "consultar_tipo_cambio_publico",
+      "salida": {
+        "usd_bob": 11.7,
+        "fuente": "ESCENARIO SIMULADO",
+        "actualizado_utc": "SIMULADO",
+        "modo": "SIMULADO_SIN_RED",
+        "atribucion": "No es una cotizacion de mercado",
+        "advertencia": "Tasa inventada para pruebas; no usar en precios reales"
+      }
+    }
+  ],
+  "control": {
+    "herramienta": "registrar_orden_reposicion",
+    "opciones": [
+      "approve",
+      "reject"
+    ],
+    "ejecutada": false
+  }
+}
+
+[OPERADOR EXTERNO] DECISION: reject
+{
+  "thread_id": "CONTROL---RECHAZO",
+  "estado": "RECHAZADO_POR_HUMANO",
+  "respuesta": "Orden rechazada por el operador. Cero escrituras realizadas.",
+  "traza": [
+    {
+      "herramienta": "consultar_inventario",
+      "salida": {
+        "sku": "CBLC",
+        "producto": "Cable USB-C a Lightning",
+        "stock": 6,
+        "ventas_14d": 55,
+        "fuente": "inventario simulado local"
+      }
+    },
+    {
+      "herramienta": "calcular_reposicion",
+      "salida": {
+        "sku": "CBLC",
+        "stock": 6,
+        "ventas_14d": 55,
+        "objetivo_dias": 21,
+        "stock_objetivo": 83,
+        "unidades_sugeridas": 77,
+        "costo_unitario_usd": "1.80",
+        "costo_total_usd": "138.60",
+        "formula": "max(0, ceil(ventas_14d / 14 * 21) - stock)"
+      }
+    },
+    {
+      "herramienta": "consultar_tipo_cambio_publico",
+      "salida": {
+        "usd_bob": 11.7,
+        "fuente": "ESCENARIO SIMULADO",
+        "actualizado_utc": "SIMULADO",
+        "modo": "SIMULADO_SIN_RED",
+        "atribucion": "No es una cotizacion de mercado",
+        "advertencia": "Tasa inventada para pruebas; no usar en precios reales"
+      }
+    },
+    {
+      "herramienta": "control_humano",
+      "salida": "RECHAZADO; registro nunca ejecutado"
+    }
+  ],
+  "control": {
+    "decision": "reject",
+    "ejecutada": false
+  }
+}

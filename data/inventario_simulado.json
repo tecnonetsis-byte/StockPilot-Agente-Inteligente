@@ -1,0 +1,13 @@
+{
+  "empresa": "ALKOSTO PLUS (escenario academico simulado)",
+  "moneda_compra": "USD",
+  "periodo_ventas_dias": 14,
+  "objetivo_cobertura_dias": 21,
+  "productos": [
+    {"sku": "C20W", "nombre": "Cargador USB-C 20 W", "stock": 8, "ventas_14d": 42, "costo_unitario_usd": 5.50, "alias": ["20 w", "20w", "cargador 20", "cargadores de 20"]},
+    {"sku": "C40W", "nombre": "Cargador USB-C 40 W", "stock": 24, "ventas_14d": 28, "costo_unitario_usd": 8.00, "alias": ["40 w", "40w", "cargador 40"]},
+    {"sku": "CBLC", "nombre": "Cable USB-C a Lightning", "stock": 6, "ventas_14d": 55, "costo_unitario_usd": 1.80, "alias": ["cable c-l", "c-l", "lightning"]},
+    {"sku": "CBCC", "nombre": "Cable USB-C a USB-C", "stock": 70, "ventas_14d": 15, "costo_unitario_usd": 1.90, "alias": ["cable c-c", "c-c", "usb-c a usb-c"]},
+    {"sku": "FUNDA", "nombre": "Funda protectora", "stock": 35, "ventas_14d": 8, "costo_unitario_usd": 2.60, "alias": ["funda", "fundas", "carcasa"]}
+  ]
+}

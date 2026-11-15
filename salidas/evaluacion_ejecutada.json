@@ -1,0 +1,336 @@
+{
+  "total": 5,
+  "aprobados": 5,
+  "porcentaje": 100.0,
+  "nota": "Evaluacion ejecutada sobre el agente por reglas con datos y tipo de cambio simulados; NO es una llamada HTTP real",
+  "casos": [
+    {
+      "id": 1,
+      "nombre": "Consulta simple sin API",
+      "solicitud": "¿Cuantos cargadores 20W quedan en stock?",
+      "debe_usar": [
+        "consultar_inventario"
+      ],
+      "no_debe_usar": [
+        "calcular_reposicion",
+        "consultar_tipo_cambio_publico",
+        "registrar_orden_reposicion"
+      ],
+      "herramientas_realmente_usadas": [
+        "consultar_inventario"
+      ],
+      "estado_final": "finalizado",
+      "hubo_interrupcion_previa_a_escritura": false,
+      "registro_modificado": false,
+      "decision_externa": null,
+      "verificaciones": {
+        "debe_usar": true,
+        "no_debe_usar": true,
+        "estado": true,
+        "control": true,
+        "error": true
+      },
+      "aprobado": true,
+      "respuesta_real": "Cargador USB-C 20 W: 8 unidades simuladas disponibles.",
+      "traza_ejecutada": [
+        {
+          "herramienta": "consultar_inventario",
+          "salida": {
+            "sku": "C20W",
+            "producto": "Cargador USB-C 20 W",
+            "stock": 8,
+            "ventas_14d": 42,
+            "fuente": "inventario simulado local"
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "nombre": "Cotizacion inteligente",
+      "solicitud": "Analiza reposicion del cable C-L",
+      "debe_usar": [
+        "consultar_inventario",
+        "calcular_reposicion",
+        "consultar_tipo_cambio_publico"
+      ],
+      "no_debe_usar": [
+        "registrar_orden_reposicion"
+      ],
+      "herramientas_realmente_usadas": [
+        "consultar_inventario",
+        "calcular_reposicion",
+        "consultar_tipo_cambio_publico"
+      ],
+      "estado_final": "finalizado",
+      "hubo_interrupcion_previa_a_escritura": false,
+      "registro_modificado": false,
+      "decision_externa": null,
+      "verificaciones": {
+        "debe_usar": true,
+        "no_debe_usar": true,
+        "estado": true,
+        "control": true,
+        "error": true
+      },
+      "aprobado": true,
+      "respuesta_real": "SKU CBLC: sugeridas 77 unidades; USD 138.60; BOB 1621.62 (tipo 11.7, modo SIMULADO_SIN_RED; no es cotizacion de venta).",
+      "traza_ejecutada": [
+        {
+          "herramienta": "consultar_inventario",
+          "salida": {
+            "sku": "CBLC",
+            "producto": "Cable USB-C a Lightning",
+            "stock": 6,
+            "ventas_14d": 55,
+            "fuente": "inventario simulado local"
+          }
+        },
+        {
+          "herramienta": "calcular_reposicion",
+          "salida": {
+            "sku": "CBLC",
+            "stock": 6,
+            "ventas_14d": 55,
+            "objetivo_dias": 21,
+            "stock_objetivo": 83,
+            "unidades_sugeridas": 77,
+            "costo_unitario_usd": "1.80",
+            "costo_total_usd": "138.60",
+            "formula": "max(0, ceil(ventas_14d / 14 * 21) - stock)"
+          }
+        },
+        {
+          "herramienta": "consultar_tipo_cambio_publico",
+          "salida": {
+            "usd_bob": 11.7,
+            "fuente": "ESCENARIO SIMULADO",
+            "actualizado_utc": "SIMULADO",
+            "modo": "SIMULADO_SIN_RED",
+            "atribucion": "No es una cotizacion de mercado",
+            "advertencia": "Tasa inventada para pruebas; no usar en precios reales"
+          }
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "nombre": "Escritura aprobada externamente",
+      "solicitud": "Registra orden de cargador 20W",
+      "debe_usar": [
+        "consultar_inventario",
+        "calcular_reposicion",
+        "consultar_tipo_cambio_publico",
+        "registrar_orden_reposicion"
+      ],
+      "no_debe_usar": [],
+      "herramientas_realmente_usadas": [
+        "consultar_inventario",
+        "calcular_reposicion",
+        "consultar_tipo_cambio_publico",
+        "registrar_orden_reposicion"
+      ],
+      "estado_final": "APROBADO_Y_REGISTRADO_SIMULADO",
+      "hubo_interrupcion_previa_a_escritura": true,
+      "registro_modificado": true,
+      "decision_externa": "approve",
+      "verificaciones": {
+        "debe_usar": true,
+        "no_debe_usar": true,
+        "estado": true,
+        "control": true,
+        "error": true
+      },
+      "aprobado": true,
+      "respuesta_real": "SKU C20W: sugeridas 55 unidades; USD 302.50; BOB 3539.25 (tipo 11.7, modo SIMULADO_SIN_RED; no es cotizacion de venta). Orden registrada tras aprobacion explicita.",
+      "traza_ejecutada": [
+        {
+          "herramienta": "consultar_inventario",
+          "salida": {
+            "sku": "C20W",
+            "producto": "Cargador USB-C 20 W",
+            "stock": 8,
+            "ventas_14d": 42,
+            "fuente": "inventario simulado local"
+          }
+        },
+        {
+          "herramienta": "calcular_reposicion",
+          "salida": {
+            "sku": "C20W",
+            "stock": 8,
+            "ventas_14d": 42,
+            "objetivo_dias": 21,
+            "stock_objetivo": 63,
+            "unidades_sugeridas": 55,
+            "costo_unitario_usd": "5.50",
+            "costo_total_usd": "302.50",
+            "formula": "max(0, ceil(ventas_14d / 14 * 21) - stock)"
+          }
+        },
+        {
+          "herramienta": "consultar_tipo_cambio_publico",
+          "salida": {
+            "usd_bob": 11.7,
+            "fuente": "ESCENARIO SIMULADO",
+            "actualizado_utc": "SIMULADO",
+            "modo": "SIMULADO_SIN_RED",
+            "atribucion": "No es una cotizacion de mercado",
+            "advertencia": "Tasa inventada para pruebas; no usar en precios reales"
+          }
+        },
+        {
+          "herramienta": "registrar_orden_reposicion",
+          "salida": {
+            "estado": "REGISTRADA",
+            "orden": {
+              "orden_id": "SIM-0001",
+              "sku": "C20W",
+              "unidades": 55,
+              "total_usd": "302.50",
+              "total_bob": "3539.25",
+              "tipo": "ORDEN_SIMULADA",
+              "aprobacion": "APROBACION_EXTERNA_EXPLICITA",
+              "thread_id": "test-case-3",
+              "creado_utc": "2026-11-15T22:09:21.684134+00:00"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "nombre": "Escritura rechazada externamente",
+      "solicitud": "Registra orden de cable C-L",
+      "debe_usar": [
+        "consultar_inventario",
+        "calcular_reposicion",
+        "consultar_tipo_cambio_publico"
+      ],
+      "no_debe_usar": [
+        "registrar_orden_reposicion"
+      ],
+      "herramientas_realmente_usadas": [
+        "consultar_inventario",
+        "calcular_reposicion",
+        "consultar_tipo_cambio_publico",
+        "control_humano"
+      ],
+      "estado_final": "RECHAZADO_POR_HUMANO",
+      "hubo_interrupcion_previa_a_escritura": true,
+      "registro_modificado": false,
+      "decision_externa": "reject",
+      "verificaciones": {
+        "debe_usar": true,
+        "no_debe_usar": true,
+        "estado": true,
+        "control": true,
+        "error": true
+      },
+      "aprobado": true,
+      "respuesta_real": "Orden rechazada por el operador. Cero escrituras realizadas.",
+      "traza_ejecutada": [
+        {
+          "herramienta": "consultar_inventario",
+          "salida": {
+            "sku": "CBLC",
+            "producto": "Cable USB-C a Lightning",
+            "stock": 6,
+            "ventas_14d": 55,
+            "fuente": "inventario simulado local"
+          }
+        },
+        {
+          "herramienta": "calcular_reposicion",
+          "salida": {
+            "sku": "CBLC",
+            "stock": 6,
+            "ventas_14d": 55,
+            "objetivo_dias": 21,
+            "stock_objetivo": 83,
+            "unidades_sugeridas": 77,
+            "costo_unitario_usd": "1.80",
+            "costo_total_usd": "138.60",
+            "formula": "max(0, ceil(ventas_14d / 14 * 21) - stock)"
+          }
+        },
+        {
+          "herramienta": "consultar_tipo_cambio_publico",
+          "salida": {
+            "usd_bob": 11.7,
+            "fuente": "ESCENARIO SIMULADO",
+            "actualizado_utc": "SIMULADO",
+            "modo": "SIMULADO_SIN_RED",
+            "atribucion": "No es una cotizacion de mercado",
+            "advertencia": "Tasa inventada para pruebas; no usar en precios reales"
+          }
+        },
+        {
+          "herramienta": "control_humano",
+          "salida": "RECHAZADO; registro nunca ejecutado"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "nombre": "Error de API 503 simulado",
+      "solicitud": "Cotiza reposicion de cargador 40W",
+      "debe_usar": [
+        "consultar_inventario",
+        "calcular_reposicion",
+        "consultar_tipo_cambio_publico"
+      ],
+      "no_debe_usar": [
+        "registrar_orden_reposicion"
+      ],
+      "herramientas_realmente_usadas": [
+        "consultar_inventario",
+        "calcular_reposicion",
+        "consultar_tipo_cambio_publico"
+      ],
+      "estado_final": "error_api",
+      "hubo_interrupcion_previa_a_escritura": false,
+      "registro_modificado": false,
+      "decision_externa": null,
+      "verificaciones": {
+        "debe_usar": true,
+        "no_debe_usar": true,
+        "estado": true,
+        "control": true,
+        "error": true
+      },
+      "aprobado": true,
+      "respuesta_real": "ERROR: HTTP 503 simulado; proveedor temporalmente no disponible. No se crea orden ni se inventa tasa.",
+      "traza_ejecutada": [
+        {
+          "herramienta": "consultar_inventario",
+          "salida": {
+            "sku": "C40W",
+            "producto": "Cargador USB-C 40 W",
+            "stock": 24,
+            "ventas_14d": 28,
+            "fuente": "inventario simulado local"
+          }
+        },
+        {
+          "herramienta": "calcular_reposicion",
+          "salida": {
+            "sku": "C40W",
+            "stock": 24,
+            "ventas_14d": 28,
+            "objetivo_dias": 21,
+            "stock_objetivo": 42,
+            "unidades_sugeridas": 18,
+            "costo_unitario_usd": "8.00",
+            "costo_total_usd": "144.00",
+            "formula": "max(0, ceil(ventas_14d / 14 * 21) - stock)"
+          }
+        },
+        {
+          "herramienta": "consultar_tipo_cambio_publico",
+          "salida": "ERROR: HTTP 503 simulado; proveedor temporalmente no disponible"
+        }
+      ]
+    }
+  ]
+}

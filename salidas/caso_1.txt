@@ -1,0 +1,21 @@
+CASO 1 | Consulta simple sin API
+INPUT: ¿Cuantos cargadores 20W quedan en stock?
+ACCIONES OBSERVADAS: consultar_inventario
+ESTADO: finalizado
+CONTROL ANTES DE ESCRIBIR: False
+MODIFICO ARCHIVO: False
+SALIDA: Cargador USB-C 20 W: 8 unidades simuladas disponibles.
+RESULTADO: PASS
+TRAZA:
+[
+  {
+    "herramienta": "consultar_inventario",
+    "salida": {
+      "sku": "C20W",
+      "producto": "Cargador USB-C 20 W",
+      "stock": 8,
+      "ventas_14d": 42,
+      "fuente": "inventario simulado local"
+    }
+  }
+]

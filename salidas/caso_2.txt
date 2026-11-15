@@ -1,0 +1,46 @@
+CASO 2 | Cotizacion inteligente
+INPUT: Analiza reposicion del cable C-L
+ACCIONES OBSERVADAS: consultar_inventario, calcular_reposicion, consultar_tipo_cambio_publico
+ESTADO: finalizado
+CONTROL ANTES DE ESCRIBIR: False
+MODIFICO ARCHIVO: False
+SALIDA: SKU CBLC: sugeridas 77 unidades; USD 138.60; BOB 1621.62 (tipo 11.7, modo SIMULADO_SIN_RED; no es cotizacion de venta).
+RESULTADO: PASS
+TRAZA:
+[
+  {
+    "herramienta": "consultar_inventario",
+    "salida": {
+      "sku": "CBLC",
+      "producto": "Cable USB-C a Lightning",
+      "stock": 6,
+      "ventas_14d": 55,
+      "fuente": "inventario simulado local"
+    }
+  },
+  {
+    "herramienta": "calcular_reposicion",
+    "salida": {
+      "sku": "CBLC",
+      "stock": 6,
+      "ventas_14d": 55,
+      "objetivo_dias": 21,
+      "stock_objetivo": 83,
+      "unidades_sugeridas": 77,
+      "costo_unitario_usd": "1.80",
+      "costo_total_usd": "138.60",
+      "formula": "max(0, ceil(ventas_14d / 14 * 21) - stock)"
+    }
+  },
+  {
+    "herramienta": "consultar_tipo_cambio_publico",
+    "salida": {
+      "usd_bob": 11.7,
+      "fuente": "ESCENARIO SIMULADO",
+      "actualizado_utc": "SIMULADO",
+      "modo": "SIMULADO_SIN_RED",
+      "atribucion": "No es una cotizacion de mercado",
+      "advertencia": "Tasa inventada para pruebas; no usar en precios reales"
+    }
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1, "nombre": "Consulta simple sin API", "solicitud": "¿Cuantos cargadores 20W quedan en stock?", "api": "simulada",
+    "debe_usar": ["consultar_inventario"], "no_debe_usar": ["calcular_reposicion", "consultar_tipo_cambio_publico", "registrar_orden_reposicion"], "estado": "finalizado"
+  },
+  {
+    "id": 2, "nombre": "Cotizacion inteligente", "solicitud": "Analiza reposicion del cable C-L", "api": "simulada",
+    "debe_usar": ["consultar_inventario", "calcular_reposicion", "consultar_tipo_cambio_publico"], "no_debe_usar": ["registrar_orden_reposicion"], "estado": "finalizado"
+  },
+  {
+    "id": 3, "nombre": "Escritura aprobada externamente", "solicitud": "Registra orden de cargador 20W", "api": "simulada", "decision_operador": "approve",
+    "debe_usar": ["consultar_inventario", "calcular_reposicion", "consultar_tipo_cambio_publico", "registrar_orden_reposicion"], "no_debe_usar": [], "estado": "APROBADO_Y_REGISTRADO_SIMULADO"
+  },
+  {
+    "id": 4, "nombre": "Escritura rechazada externamente", "solicitud": "Registra orden de cable C-L", "api": "simulada", "decision_operador": "reject",
+    "debe_usar": ["consultar_inventario", "calcular_reposicion", "consultar_tipo_cambio_publico"], "no_debe_usar": ["registrar_orden_reposicion"], "estado": "RECHAZADO_POR_HUMANO"
+  },
+  {
+    "id": 5, "nombre": "Error de API 503 simulado", "solicitud": "Cotiza reposicion de cargador 40W", "api": "falla_simulada",
+    "debe_usar": ["consultar_inventario", "calcular_reposicion", "consultar_tipo_cambio_publico"], "no_debe_usar": ["registrar_orden_reposicion"], "estado": "error_api", "prefijo_error": "ERROR:"
+  }
+]
